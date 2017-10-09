@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<center><h3>Album Directory</h3></center>
+<br>
+
+{% for album in albums %}
+    {% if forloop.counter|divisibleby:"3" %}
+        <div class="row">
+       	    <div class='col-md-4'><center><a href='{{ album.title }}'>{{ album.title }}</a> - {{album.artist.title}}</center></div>
+       	</div>
+    {% else %}
+    <div class='col-md-4'><center><a href='{{ album.title }}'>{{ album.title }}</a> - {{album.artist.title}}</center></div>
+    {% endif %}
+{% endfor %}
+
+{% endblock %}

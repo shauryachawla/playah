@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<center><h3>Song Directory</h3></center>
+<br>
+
+{% for song in songs %}
+    {% if forloop.counter|divisibleby:"3" %}
+        <div class="row">
+       	    <div class='col-md-4'><center>{{ song.title }} - {{song.artist.title}}</center></div>
+       	</div>
+    {% else %}
+    <div class='col-md-4'><center>{{ song.title }} - {{song.artist.title}}</center></div>
+    {% endif %}
+{% endfor %}
+
+{% endblock %}
