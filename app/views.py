@@ -18,4 +18,5 @@ def show_songs(request):
 def show_album_page(request, album_title):
 	print str(album_title)
 	album = Album.objects.get(title=album_title)
-	return render(request, 'album_page.html', {'album' : album})
+	songs = Song.objects.filter(album__title__exact = album.title)
+	return render(request, 'album_page.html', {'album' : album, 'songs' : songs})

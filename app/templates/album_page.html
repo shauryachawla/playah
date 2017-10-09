@@ -3,5 +3,8 @@
 {% block content %}
 
 <h1>Album title : {{album.title}}</h1>
-
+<ul>
+{% for song in songs %}
+<li>{{ song.title }}</li>
+{% endfor %}
 {% endblock %}
