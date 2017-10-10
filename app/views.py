@@ -12,6 +12,10 @@ def show_albums(request):
 	albums = Album.objects.all().order_by('artist')
 	return render(request, 'albums.html', {'albums' : albums})
 
+def show_artists(request):
+	artists = Artist.objects.all().order_by('title')
+	return render(request, 'artists.html', {'artists' : artists})
+
 def show_songs(request):
 	songs = Song.objects.all()
 	return render(request, 'songs.html', {'songs' : songs})
@@ -28,7 +32,7 @@ def add_artist(request):
 
 		if form.is_valid():
 			form.save(commit=True)
-			
+
 			return index(request)
 		else:
 			print form.errors
