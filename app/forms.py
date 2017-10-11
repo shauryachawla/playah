@@ -16,3 +16,11 @@ class NewAlbumForm(forms.ModelForm):
 		model = Album
 		fields = ('title','artist')
 
+class NewSongForm(forms.ModelForm):
+	title = forms.CharField(max_length = 30)
+	artist = forms.ModelChoiceField(Artist.objects.all())
+	album = forms.ModelChoiceField(Album.objects.all())
+
+	class Meta:
+		model = Song
+		fields = ('title', 'artist', 'album')

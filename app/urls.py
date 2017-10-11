@@ -8,4 +8,6 @@ urlpatterns = [
     url(r'^artists/', views.show_artists, name='show_artists'),
     url(r'^albums/(?P<album_title>[\w|\W]+)/$', views.show_album_page, name='show_album_page'),
     url(r'^add_artist/', views.add_artist, name='add_artist'),
+    url(r'^add_album/', views.add_album, name='add_album'),
+    url(r'^add_song/', views.add_song, name='add_song'),
 ]

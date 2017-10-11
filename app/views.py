@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 
 from django.shortcuts import render
 from .models import Album, Song, Artist
-from .forms import NewArtistForm
+from .forms import *
 # Create your views here.
 def index(request):
 	return render(request, 'index.html', {})
@@ -40,3 +40,31 @@ def add_artist(request):
 		form = NewArtistForm()
 
 	return render(request, 'new_artist.html', {'form' : form})
+
+def add_album(request):
+	if (request.method == 'POST'):
+		form = NewAlbumForm(request.POST)
+
+		if form.is_valid():
+			form.save()
+
+			return index(request)
+		else:
+			print form.errors
+	else:
+		form = NewAlbumForm()
+	return render(request, 'new_album.html', {'form' : form})
+
+def add_song(request):
+	if (request.method == 'POST'):
+		form = NewSongForm(request.POST)
+
+		if form.is_valid():
+			form.save()
+
+			return index(request)
+		else:
+			print form.errors
+	else:
+		form = NewSongForm()
+	return render(request, 'new_song.html', {'form' : form})

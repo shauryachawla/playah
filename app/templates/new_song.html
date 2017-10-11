@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form id='new_song_form' method='post' action='/app/add_song/'>
+	{% csrf_token %}
+	{% for hidden in form.hidden_fields %}
+		{{ hidden }}
+	{% endfor %}
+
+	{% for field in form.visible_fields %}
+		{{ field.errors }}
+		{{ field.help_text }}
+		{{ field }}
+	{% endfor %}
+	<br>
+	<input type='submit' name='submit' value='Create album' />
+</form>
+{% endblock %}
