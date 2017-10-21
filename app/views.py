@@ -4,6 +4,8 @@ from __future__ import unicode_literals
 from django.shortcuts import render
 from .models import Album, Song, Artist
 from .forms import *
+from django.http import HttpResponse
+import json
 # Create your views here.
 def index(request):
 	return render(request, 'index.html', {})
@@ -55,7 +57,7 @@ def add_album(request):
 		form = NewAlbumForm()
 	return render(request, 'new_album.html', {'form' : form})
 
-def add_song(request):
+def add_song(request, qs=None):
 	if (request.method == 'POST'):
 		form = NewSongForm(request.POST)
 
@@ -65,6 +67,26 @@ def add_song(request):
 			return index(request)
 		else:
 			print form.errors
+
+	elif (request.method == 'GET' and request.GET.get('artist_name')):
+		if qs is None:
+			qs = Album.objects.values_list('title', flat=True).all()
+		if request.GET.get('artist_name'):
+			artist_name=request.GET.get('artist_name')
+			artist = Artist.objects.filter(title=artist_name)
+			if artist.count() > 0:
+				artist = artist[0]
+			qs = Album.objects.filter(artist=artist.id).order_by('title')
+		# create an empty list to hold the results
+		results = []
+		# iterate over each album and append to results list
+		for album in qs:
+			results.append({"id" : album.id, "title" : album.title})
+		# if no results found then append a relevant message to results list
+		if not results:
+			results.append(("No album found"))
+		# return JSON object
+		return HttpResponse(json.dumps(results))
 	else:
 		form = NewSongForm()
 	return render(request, 'new_song.html', {'form' : form})

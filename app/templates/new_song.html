@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
-
 {% block content %}
+<script src="/static/new_song.js"></script>
 <form id='new_song_form' method='post' action='/app/add_song/'>
 	{% csrf_token %}
 	{% for hidden in form.hidden_fields %}

@@ -18,7 +18,12 @@ class NewAlbumForm(forms.ModelForm):
 
 class NewSongForm(forms.ModelForm):
 	title = forms.CharField(max_length = 30)
-	artist = forms.ModelChoiceField(Artist.objects.all())
+	artist = forms.ModelChoiceField(queryset=Artist.objects.all(),
+									empty_label='Not Specified',
+									widget=forms.Select(attrs=
+										{
+											"onChange":'getAlbum()'
+										}))
 	album = forms.ModelChoiceField(Album.objects.all())
 
 	class Meta:
